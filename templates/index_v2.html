@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fish Species Prediction</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fish Species Prediction</h1>
+        <form action="/predict" method="post" class="input-fields" onsubmit="return validateForm()">
+            <label for="weight">Weight (cm):</label>
+            <input type="text" name="weight" id="weight" required>
+            <label for="length1">Length 1 (cm):</label>
+            <input type="text" name="length1" id="length1" required>
+            <label for="length2">Length 2 (cm):</label>
+            <input type="text" name="length2" id="length2" required>
+            <label for="length3">Length 3 (cm):</label>
+            <input type="text" name="length3" id="length3" required>
+            <label for="height">Height (cm):</label>
+            <input type="text" name="height" id="height" required>
+            <label for="width">Width (cm):</label>
+            <input type="text" name="width" id="width" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predicted_species %}
+            <p>{{ predicted_species }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function validateForm() {
+            // Get all form inputs
+            const weightInput = document.getElementById('weight');
+            const length1Input = document.getElementById('length1');
+            const length2Input = document.getElementById('length2');
+            const length3Input = document.getElementById('length3');
+            const heightInput = document.getElementById('height');
+            const widthInput = document.getElementById('width');
+
+            // Check if any field is empty
+            if (
+                weightInput.value === '' ||
+                length1Input.value === '' ||
+                length2Input.value === '' ||
+                length3Input.value === '' ||
+                heightInput.value === '' ||
+                widthInput.value === ''
+            ) {
+                alert('Please fill in all fields before submitting.');
+                return false; // Prevent form submission
+            }
+
+            // All fields are filled, allow form submission
+            return true;
+        }
+    </script>
+</body>
+</html>
